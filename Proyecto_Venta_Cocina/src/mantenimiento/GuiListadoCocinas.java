@@ -1,0 +1,155 @@
+package mantenimiento;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.ScrollPane;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+
+import menu.MenuPrincipal;
+
+import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.ScrollPaneConstants;
+import java.awt.ComponentOrientation;
+
+public class GuiListadoCocinas extends JDialog implements ActionListener {
+	
+	//AGREGAR SCROLL A LA LISTA
+	
+
+	private static final long serialVersionUID = 1L;
+	private final JPanel contentPanel = new JPanel();
+	private JButton btnCerrar;
+	private JButton btnListar;
+	private JScrollPane scrollPane;
+	private JTextArea txtLista;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			GuiListadoCocinas dialog = new GuiListadoCocinas();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Create the dialog.
+	 */
+	public GuiListadoCocinas() {
+		setTitle("Listado de cocinas");
+		setBounds(100, 100, 581, 477);
+		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		contentPanel.setLayout(null);
+		
+		btnCerrar = new JButton("Cerrar");
+		btnCerrar.addActionListener(this);
+		btnCerrar.setBounds(166, 402, 89, 23);
+		contentPanel.add(btnCerrar);
+		
+		btnListar = new JButton("Listar");
+		btnListar.addActionListener(this);
+		btnListar.setBounds(312, 402, 89, 23);
+		contentPanel.add(btnListar);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setAutoscrolls(true);
+		scrollPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(10, 11, 545, 380);
+		contentPanel.add(scrollPane);
+		
+		txtLista = new JTextArea();
+		scrollPane.setViewportView(txtLista);
+		txtLista.setEditable(false);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnListar) {
+			actionPerformedBtnListar(e);
+		}
+		if (e.getSource() == btnCerrar) {
+			actionPerformedBtnCerrar(e);
+		}
+	}
+	protected void actionPerformedBtnCerrar(ActionEvent e) {
+		
+		dispose();
+		
+	}
+	protected void actionPerformedBtnListar(ActionEvent e) {
+		
+		txtLista.setText("LISTADO DE COCINAS"+"\n");
+		txtLista.append("\n");
+		Cocina1();
+		Cocina2();
+		Cocina3();
+		Cocina4();
+		Cocina5();
+	}
+	
+	//PRIMERA COCINA
+	void Cocina1() {
+		txtLista.append("Modelo	:  "+MenuPrincipal.modelo0+"\n");
+		txtLista.append("Precio	:  S/ "+MenuPrincipal.precio0+"\n");
+		txtLista.append("Profundidad	:  "+MenuPrincipal.fondo0+" cm"+"\n");
+		txtLista.append("Ancho	:  "+MenuPrincipal.ancho0+" cm"+"\n");
+		txtLista.append("Alto	:  "+MenuPrincipal.alto0+" cm"+"\n");
+		txtLista.append("Quemadores	:  "+MenuPrincipal.quemadores0+"\n");
+		txtLista.append("\n");
+	}
+	//SEGUNDA COCINA
+	void Cocina2() {
+		txtLista.append("Modelo	:  "+MenuPrincipal.modelo1+"\n");
+		txtLista.append("Precio	:  S/ "+MenuPrincipal.precio1+"\n");
+		txtLista.append("Profundidad	:  "+MenuPrincipal.fondo1+" cm"+"\n");
+		txtLista.append("Ancho	:  "+MenuPrincipal.ancho1+" cm"+"\n");
+		txtLista.append("Alto	:  "+MenuPrincipal.alto1+" cm"+"\n");
+		txtLista.append("Quemadores	:  "+MenuPrincipal.quemadores1+"\n");
+		txtLista.append("\n");
+	}
+	//TERCERA COCINA
+	void Cocina3() {
+		txtLista.append("Modelo	:  "+MenuPrincipal.modelo2+"\n");
+		txtLista.append("Precio	:  S/ "+MenuPrincipal.precio2+"\n");
+		txtLista.append("Profundidad	:  "+MenuPrincipal.fondo2+" cm"+"\n");
+		txtLista.append("Ancho	:  "+MenuPrincipal.ancho2+" cm"+"\n");
+		txtLista.append("Alto	:  "+MenuPrincipal.alto2+" cm"+"\n");
+		txtLista.append("Quemadores	:  "+MenuPrincipal.quemadores2+"\n");
+		txtLista.append("\n");
+	}
+	//CUARTA COCINA
+	void Cocina4() {
+		txtLista.append("Modelo	:  "+MenuPrincipal.modelo3+"\n");
+		txtLista.append("Precio	:  S/ "+MenuPrincipal.precio3+"\n");
+		txtLista.append("Profundidad	:  "+MenuPrincipal.fondo3+" cm"+"\n");
+		txtLista.append("Ancho	:  "+MenuPrincipal.ancho3+" cm"+"\n");
+		txtLista.append("Alto	:  "+MenuPrincipal.alto3+" cm"+"\n");
+		txtLista.append("Quemadores	:  "+MenuPrincipal.quemadores3+"\n");
+		txtLista.append("\n");
+	}
+	//QUINTA COCINA
+	void Cocina5() {
+		txtLista.append("Modelo	:  "+MenuPrincipal.modelo4+"\n");
+		txtLista.append("Precio	:  S/ "+MenuPrincipal.precio4+"\n");
+		txtLista.append("Profundidad	:  "+MenuPrincipal.fondo4+" cm"+"\n");
+		txtLista.append("Ancho	:  "+MenuPrincipal.ancho4+" cm"+"\n");
+		txtLista.append("Alto	:  "+MenuPrincipal.alto4+" cm"+"\n");
+		txtLista.append("Quemadores	:  "+MenuPrincipal.quemadores4+"\n");
+	}
+}
