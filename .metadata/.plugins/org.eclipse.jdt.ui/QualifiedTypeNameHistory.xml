@@ -10,4 +10,5 @@
     <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
     <fullyQualifiedTypeName name="java.lang.Void"/>
     <fullyQualifiedTypeName name="java.awt.ScrollPane"/>
+    <fullyQualifiedTypeName name="ventas.GuiVender"/>
 </qualifiedTypeNameHistroy>

@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import mantenimiento.GuiConsultarCocina;
 import mantenimiento.GuiListadoCocinas;
 import mantenimiento.GuiModificarCocina;
+import ventas.GuiVender;
 
 public class MenuPrincipal extends JFrame implements ActionListener {
 	
@@ -139,6 +140,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		menuBar.add(mnVentas);
 		
 		mntmVender = new JMenuItem("Vender");
+		mntmVender.addActionListener(this);
 		mnVentas.add(mntmVender);
 		
 		mntmGenerarReportes = new JMenuItem("Generar reportes");
@@ -171,6 +173,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmVender) {
+			actionPerformedMntmVender(e);
+		}
 		if (e.getSource() == mntmListadeCocinas) {
 			actionPerformedMntmNewMenuItem_3(e);
 		}
@@ -199,5 +204,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	protected void actionPerformedMntmNewMenuItem_3(ActionEvent e) {
 		GuiListadoCocinas lista=new GuiListadoCocinas();
 		lista.setVisible(true);
+	}
+	protected void actionPerformedMntmVender(ActionEvent e) {
+		GuiVender vender=new GuiVender();
+		vender.setVisible(true);
 	}
 }
