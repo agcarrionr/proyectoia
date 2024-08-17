@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import configuracion.GuiConfiCantidadOptima;
+import configuracion.GuiConfiCuotaDiaria;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -13,6 +17,7 @@ import java.awt.event.ActionEvent;
 import mantenimiento.GuiConsultarCocina;
 import mantenimiento.GuiListadoCocinas;
 import mantenimiento.GuiModificarCocina;
+import ventas.GuiGenerarReportes;
 import ventas.GuiVender;
 
 public class MenuPrincipal extends JFrame implements ActionListener {
@@ -144,18 +149,22 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mnVentas.add(mntmVender);
 		
 		mntmGenerarReportes = new JMenuItem("Generar reportes");
+		mntmGenerarReportes.addActionListener(this);
 		mnVentas.add(mntmGenerarReportes);
 		
 		mnConfiguración = new JMenu("Configuración");
 		menuBar.add(mnConfiguración);
 		
 		mntmDescuentos = new JMenuItem("Configurar descuentos");
+		mntmDescuentos.addActionListener(this);
 		mnConfiguración.add(mntmDescuentos);
 		
 		mntmObsequios = new JMenuItem("Configurar obsequios");
+		mntmObsequios.addActionListener(this);
 		mnConfiguración.add(mntmObsequios);
 		
 		mntmCantidadOptima = new JMenuItem("Configurar cantidad óptima");
+		mntmCantidadOptima.addActionListener(this);
 		mnConfiguración.add(mntmCantidadOptima);
 		
 		mntmCuotaDiaria = new JMenuItem("Configurar cuota diaria");
@@ -173,6 +182,18 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == mntmCantidadOptima) {
+			actionPerformedMntmCantidadOptima(e);
+		}
+		if (e.getSource() == mntmObsequios) {
+			actionPerformedMntmObsequios(e);
+		}
+		if (e.getSource() == mntmDescuentos) {
+			actionPerformedMntmDescuentos(e);
+		}
+		if (e.getSource() == mntmGenerarReportes) {
+			actionPerformedMntmGenerarReportes(e);
+		}
 		if (e.getSource() == mntmVender) {
 			actionPerformedMntmVender(e);
 		}
@@ -208,5 +229,21 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	protected void actionPerformedMntmVender(ActionEvent e) {
 		GuiVender vender=new GuiVender();
 		vender.setVisible(true);
+	}
+	protected void actionPerformedMntmGenerarReportes(ActionEvent e) {
+		GuiGenerarReportes reporte=new GuiGenerarReportes();
+		reporte.setVisible(true);
+	}
+	protected void actionPerformedMntmDescuentos(ActionEvent e) {
+		GuiConfiDescuentos descuentos=new GuiConfiDescuentos();
+		descuentos.setVisible(true);
+	}
+	protected void actionPerformedMntmObsequios(ActionEvent e) {
+		GuiConfiCuotaDiaria cuotadiaria=new GuiConfiCuotaDiaria();
+		cuotadiaria.setVisible(true);
+	}
+	protected void actionPerformedMntmCantidadOptima(ActionEvent e) {
+		GuiConfiCantidadOptima cantidadoptima=new GuiConfiCantidadOptima();
+		cantidadoptima.setVisible(true);
 	}
 }
