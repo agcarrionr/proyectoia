@@ -6,11 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Ayuda.GuiAcercaTienda;
 import configuracion.GuiConfiCantidadOptima;
 import configuracion.GuiConfiCuotaDiaria;
 import configuracion.GuiConfiDescuentos;
-import configuracion.GuiConfiObsequios;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -171,14 +169,12 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		mnConfiguración.add(mntmCantidadOptima);
 		
 		mntmCuotaDiaria = new JMenuItem("Configurar cuota diaria");
-		mntmCuotaDiaria.addActionListener(this);
 		mnConfiguración.add(mntmCuotaDiaria);
 		
 		mnAyuda = new JMenu("Ayuda");
 		menuBar.add(mnAyuda);
 		
 		mntmAcercadeTienda = new JMenuItem("Acerca de tienda");
-		mntmAcercadeTienda.addActionListener(this);
 		mnAyuda.add(mntmAcercadeTienda);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -187,12 +183,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmAcercadeTienda) {
-			actionPerformedMntmAcercadeTienda(e);
-		}
-		if (e.getSource() == mntmCuotaDiaria) {
-			actionPerformedMntmCuotaDiaria(e);
-		}
 		if (e.getSource() == mntmCantidadOptima) {
 			actionPerformedMntmCantidadOptima(e);
 		}
@@ -250,19 +240,11 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		descuentos.setVisible(true);
 	}
 	protected void actionPerformedMntmObsequios(ActionEvent e) {
-		GuiConfiObsequios obsequios=new GuiConfiObsequios();
-		obsequios.setVisible(true);
+		GuiConfiCuotaDiaria cuotadiaria=new GuiConfiCuotaDiaria();
+		cuotadiaria.setVisible(true);
 	}
 	protected void actionPerformedMntmCantidadOptima(ActionEvent e) {
 		GuiConfiCantidadOptima cantidadoptima=new GuiConfiCantidadOptima();
 		cantidadoptima.setVisible(true);
-	}
-	protected void actionPerformedMntmCuotaDiaria(ActionEvent e) {
-		GuiConfiCuotaDiaria cuotadiaria=new GuiConfiCuotaDiaria();
-		cuotadiaria.setVisible(true);
-	}
-	protected void actionPerformedMntmAcercadeTienda(ActionEvent e) {
-		GuiAcercaTienda acercatienda=new GuiAcercaTienda();
-		acercatienda.setVisible(true);
 	}
 }

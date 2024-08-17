@@ -11,4 +11,10 @@
     <fullyQualifiedTypeName name="java.lang.Void"/>
     <fullyQualifiedTypeName name="java.awt.ScrollPane"/>
     <fullyQualifiedTypeName name="ventas.GuiVender"/>
+    <fullyQualifiedTypeName name="ventas.GuiGenerarReportes"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiCantidadOptima"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiCuotaDiaria"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiDescuentos"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiObsequios"/>
+    <fullyQualifiedTypeName name="Ayuda.GuiAcercaTienda"/>
 </qualifiedTypeNameHistroy>

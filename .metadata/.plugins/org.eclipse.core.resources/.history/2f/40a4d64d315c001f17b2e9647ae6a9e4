@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Ayuda.GuiAcercaTienda;
 import configuracion.GuiConfiCantidadOptima;
 import configuracion.GuiConfiCuotaDiaria;
 import configuracion.GuiConfiDescuentos;
@@ -178,7 +177,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 		menuBar.add(mnAyuda);
 		
 		mntmAcercadeTienda = new JMenuItem("Acerca de tienda");
-		mntmAcercadeTienda.addActionListener(this);
 		mnAyuda.add(mntmAcercadeTienda);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -187,9 +185,6 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == mntmAcercadeTienda) {
-			actionPerformedMntmAcercadeTienda(e);
-		}
 		if (e.getSource() == mntmCuotaDiaria) {
 			actionPerformedMntmCuotaDiaria(e);
 		}
@@ -260,9 +255,5 @@ public class MenuPrincipal extends JFrame implements ActionListener {
 	protected void actionPerformedMntmCuotaDiaria(ActionEvent e) {
 		GuiConfiCuotaDiaria cuotadiaria=new GuiConfiCuotaDiaria();
 		cuotadiaria.setVisible(true);
-	}
-	protected void actionPerformedMntmAcercadeTienda(ActionEvent e) {
-		GuiAcercaTienda acercatienda=new GuiAcercaTienda();
-		acercatienda.setVisible(true);
 	}
 }
