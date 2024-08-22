@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="mantenimiento.GuiConsultarCocina"/>
+    <fullyQualifiedTypeName name="mantenimiento.GuiModificarCocina"/>
+    <fullyQualifiedTypeName name="mantenimiento.GuiListadoCocinas"/>
+    <fullyQualifiedTypeName name="java.security.PublicKey"/>
+    <fullyQualifiedTypeName name="javax.swing.JFrame"/>
+    <fullyQualifiedTypeName name="menu.MenuPrincipal"/>
+    <fullyQualifiedTypeName name="javax.swing.JScrollBar"/>
+    <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
+    <fullyQualifiedTypeName name="java.lang.Void"/>
+    <fullyQualifiedTypeName name="java.awt.ScrollPane"/>
+    <fullyQualifiedTypeName name="ventas.GuiVender"/>
+    <fullyQualifiedTypeName name="ventas.GuiGenerarReportes"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiCantidadOptima"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiCuotaDiaria"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiDescuentos"/>
+    <fullyQualifiedTypeName name="configuracion.GuiConfiObsequios"/>
+    <fullyQualifiedTypeName name="Ayuda.GuiAcercaTienda"/>
+</qualifiedTypeNameHistroy>
