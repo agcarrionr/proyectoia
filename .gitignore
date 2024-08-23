@@ -1,0 +1,41 @@
+# Archivos de configuración de Eclipse
+.classpath
+.project
+.settings/
+
+# Directorios de compilación
+bin/
+target/
+
+# Archivos generados por Maven (si usas Maven)
+.mvn/
+pom.xml.versionsBackup
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+
+# Archivos generados por Gradle (si usas Gradle)
+.gradle/
+build/
+
+# Archivos de logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.bak
+*.swp
+
+# Archivos de configuración del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración de IntelliJ IDEA (si también usas IntelliJ)
+.idea/
+*.iml
+
+# Ignorar archivos de empaquetado
+*.jar
+*.war
+*.ear

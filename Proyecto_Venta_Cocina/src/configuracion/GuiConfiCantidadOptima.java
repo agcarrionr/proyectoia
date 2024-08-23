@@ -8,10 +8,24 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-public class GuiConfiCantidadOptima extends JDialog {
+import menu.MenuPrincipal;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+import javax.swing.JPanel;
+
+
+public class GuiConfiCantidadOptima extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
+	private JLabel lblNewLabel;
+	private JTextField txtCantidadoptima;
+	private JButton btnAceptar;
+	private JButton btnCancelar;
 
 	/**
 	 * Launch the application.
@@ -30,27 +44,60 @@ public class GuiConfiCantidadOptima extends JDialog {
 	 * Create the dialog.
 	 */
 	public GuiConfiCantidadOptima() {
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		setTitle("Configuracion cantidad optima");
+		setBounds(100, 100, 450, 122);
+		getContentPane().setLayout(null);
+		
+		lblNewLabel = new JLabel("Cantidad optima de unidades vendidas");
+		lblNewLabel.setBounds(10, 22, 244, 19);
+		getContentPane().add(lblNewLabel);
+		
+		txtCantidadoptima = new JTextField();
+		txtCantidadoptima.setBounds(252, 21, 69, 20);
+		getContentPane().add(txtCantidadoptima);
+		txtCantidadoptima.setColumns(10);
+		
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(this);
+		btnAceptar.setBounds(331, 20, 93, 23);
+		getContentPane().add(btnAceptar);
+		
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(this);
+		btnCancelar.setBounds(332, 49, 92, 23);
+		getContentPane().add(btnCancelar);
+		
+		Salida ();
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAceptar) {
+			actionPerformedBtnAceptar(e);
+		}
+		if (e.getSource() == btnCancelar) {
+			actionPerformedBtnNewButton_1(e);
 		}
 	}
+	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
+		
+		
+		dispose();
+		
+	}
+	protected void actionPerformedBtnAceptar(ActionEvent e) {
+		
+		Prueba ();
+		dispose();
+		JOptionPane.showMessageDialog(null, "Cambios Guardados");
+	}
+	void Prueba () {
+		MenuPrincipal.cantidadOptima=Integer.parseInt(txtCantidadoptima.getText());
+	}
+	void Salida() {
+		
+		txtCantidadoptima.setText(""+MenuPrincipal.cantidadOptima);
+		}
 
-}
+
+		
+	}
+
