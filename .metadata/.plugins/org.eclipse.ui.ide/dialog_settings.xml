@@ -51,4 +51,12 @@
 		<item value="org.eclipse.wb.swing.feature:1.16.0.202405211736"/>
 		<item value="org.eclipse.wb.swt.feature:1.16.0.202405081620"/>
 	</list>
+	<section name="CleanDialogSettings">
+		<item key="BUILD_NOW" value="true"/>
+		<item key="BUILD_ALL" value="true"/>
+		<item key="TOGGLE_SELECTED" value="false"/>
+		<item key="DIALOG_WIDTH" value="540"/>
+		<item key="DIALOG_HEIGHT" value="442"/>
+		<item key="DIALOG_FONT_NAME" value="1|.AppleSystemUIFont|11.0|0|COCOA|1|.AppleSystemUIFont"/>
+	</section>
 </section>
