@@ -128,7 +128,7 @@ public class GuiConfiDescuentos extends JDialog implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnCancelar(ActionEvent e) {
-		System.exit(WIDTH);
+		dispose();
 	}
 	
 	//Método para ingresar datos
