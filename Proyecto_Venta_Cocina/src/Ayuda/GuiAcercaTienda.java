@@ -17,8 +17,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 import java.awt.Component;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
-public class GuiAcercaTienda extends JDialog {
+public class GuiAcercaTienda extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -26,6 +31,7 @@ public class GuiAcercaTienda extends JDialog {
 	private JSeparator separator;
 	private JLabel lblAutores;
 	private JLabel lblNewLabel;
+	private JButton btnCerrar;
 
 	/**
 	 * Launch the application.
@@ -80,20 +86,27 @@ public class GuiAcercaTienda extends JDialog {
 		lblNewLabel.setBounds(108, 134, 338, 109);
 		contentPanel.add(lblNewLabel);
 		{
+			btnCerrar = new JButton("Cerrar");
+			btnCerrar.setBorder(new LineBorder(new Color(65, 105, 225), 1, true));
+			btnCerrar.setBounds(221, 274, 75, 29);
+			contentPanel.add(btnCerrar);
+			btnCerrar.addActionListener(this);
+			btnCerrar.setActionCommand("OK");
+			getRootPane().setDefaultButton(btnCerrar);
+		}
+		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			buttonPane.setLayout(null);
 		}
 	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnCerrar) {
+			actionPerformedOkButtonJButton(e);
+		}
+	}
+	protected void actionPerformedOkButtonJButton(ActionEvent e) {
+		dispose();
+	}
+	
 }
