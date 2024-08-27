@@ -95,6 +95,9 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 	private JLabel lblIcon;
 	private JTextField txtBoleta;
 	private JButton btnRegistrar;
+	//parámetros globales 
+	public static int totalVendido = 0;
+	public static int totalVentasAcumulado = 0;
 
 	/**
 	 * Launch the application.
@@ -135,8 +138,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
 		// Crear un ImageIcon con la ruta de la imagen
         ImageIcon icon = new ImageIcon("ruta/de/la/imagen.jpg");
 		
@@ -193,12 +194,11 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		TableVenta.setBackground(new Color(192, 192, 192));
 		TableVenta.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		TableVenta.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Modelo", "Precio", "Cantidad", "Importe Compra", "Importe Descuento", "Importe Pagar", "Obsequio"
-			}
-		) {
+				new Object[][] {},
+				new String[] {
+						"Modelo", "Precio", "Cantidad", "Importe Compra", "Importe Descuento", "Importe Pagar", "Obsequio"
+						}
+				) {
 			boolean[] columnEditables = new boolean[] {
 				false, true, true, true, true, true, true
 			};
@@ -550,15 +550,14 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
         		    // Si ya es un Double, solo asignarlo
         			nuevoimporteCompra = (Double) importeCompra + icom;
         		}
+        	   System.out.print("totalimporte:" + nuevoimporteCompra);
+        	   
                              
               // double importeCom = Double.parseDouble(importeCompra);
                // Incrementar la cantidad
            //    double nuevoimporteCompra = importeCompra + icom;
                // Actualizar la celda con la nueva cantidad
                model.setValueAt(nuevoimporteCompra, i, 3);
-               
-               
-               
                
                Object importeDescuento = model.getValueAt(i, 4);
                
@@ -576,7 +575,7 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
                // Actualizar la celda con la nueva cantidad
                model.setValueAt(df.format(nuevoimporteDescuento), i, 4);
 
-               
+               System.out.print("total descuento:" + nuevoimporteDescuento);
                
                
                Object importePagar =  model.getValueAt(i, 5);
@@ -595,7 +594,7 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
                // Actualizar la celda con la nueva cantidad
                model.setValueAt(df.format(nuevaimportePagar), i, 5);
                
-               
+               System.out.print("total pagar:" + nuevaimportePagar);
                
                if(nuevaCantidad==1)
        			obs="Cafetera";
@@ -641,7 +640,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 	        	
 	        }
 	}
-	
 	
 	
 	protected void actionPerformedBtnImpri(ActionEvent e) {
@@ -806,72 +804,80 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
         if (!Character.isDigit(c)) {
             e.consume();
         }
-		
-		
 	}
 	protected void actionPerformedBtnNewButton_1(ActionEvent e) {
-		   DefaultTableModel model = (DefaultTableModel) TableVenta.getModel();
-	        	     
-		   String DNI = txtDNI.getText();
-		
-			 if (DNI.isEmpty() ) {
-		            // Mostrar mensaje de error si algún campo está vacío
-		            JOptionPane.showMessageDialog(null, "Por favor, seleccione un cliente para poder imprimir.", "Error", JOptionPane.INFORMATION_MESSAGE);
-		            return; // Salir del método si los campos no están completos
-		        }
-			 
-			 if(model.getRowCount()==0) {
-				    JOptionPane.showMessageDialog(null, "No hay ningun producto ingresado para poder imprimir.", "Error", JOptionPane.INFORMATION_MESSAGE);
-		            return; // Salir del método si los campos no están completos
-				 
-			 }
-		   
-	        for (int i = 0; i < model.getRowCount(); i++) {
-	        	
-	        	 Object cantidadActual = model.getValueAt(i, 2);
-	    	               int nuevaCantidad = 0;
-	    	        	   if (cantidadActual instanceof String) {
-	    	         		    // Si es un String, convertirlo a double
-	    	        		   nuevaCantidad = Integer.parseInt((String) cantidadActual);
-	    	        		} else if (cantidadActual instanceof Integer) {
-	    	         		    // Si ya es un Double, solo asignarlo
-	    	        			nuevaCantidad = (Integer) cantidadActual ;
-	    	        		}
-	    	        	   
-	    	        	   
-	     	   if(model.getValueAt(i, 0)=="Mabe EMP6120PG0") {
-        		   MenuPrincipal.stock01-=nuevaCantidad;
-        		   
-        	   }else if(model.getValueAt(i, 0)=="Indurama Parma") {
-        		   MenuPrincipal.stock02-=nuevaCantidad;
-        		   
-        	   }else if(model.getValueAt(i, 0)=="Sole COSOL027") {
-        		   MenuPrincipal.stock03-=nuevaCantidad;
-        		   
-        	   }else if(model.getValueAt(i, 0)=="Coldex CX602") {
-        		   
-        		   MenuPrincipal.stock04-=nuevaCantidad;
-        	   }else if(model.getValueAt(i, 0)=="Reco Dakota") {
-        		   MenuPrincipal.stock05-=nuevaCantidad;
-        		   
-        	   }
-	        }
-	        
-	        int option = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea realizar el registro de la Venta?", "Confirmar Registro", JOptionPane.YES_NO_OPTION);
+	    DefaultTableModel model = (DefaultTableModel) TableVenta.getModel();
+	    String DNI = txtDNI.getText();
 
-	        if (option == JOptionPane.YES_OPTION) {
-	            // Código para realizar el registro
-	         //   registrarVenta(); // Este es un método que realizaría la acción de registrar
+	    if (DNI.isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "Por favor, seleccione un cliente para poder imprimir.", "Error", JOptionPane.INFORMATION_MESSAGE);
+	        return; // Salir del método si los campos no están completos
+	    }
 
-	            // Mostrar un mensaje de que el registro se realizó correctamente
-	            JOptionPane.showMessageDialog(null, "Registro realizado correctamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+	    if (model.getRowCount() == 0) {
+	        JOptionPane.showMessageDialog(null, "No hay ningun producto ingresado para poder imprimir.", "Error", JOptionPane.INFORMATION_MESSAGE);
+	        return; // Salir del método si no hay productos
+	    }
 
-	            // Limpiar el formulario después del registro
-	            LimpiarFormulario();
+	    // Reiniciar totalVendido antes de procesar las nuevas ventas
+	    totalVendido = 0;
+
+	    for (int i = 0; i < model.getRowCount(); i++) {
+	        Object cantidadActual = model.getValueAt(i, 2);
+
+	        if (cantidadActual instanceof String) {
+	            try {
+	                // Convertir el String a entero
+	                totalVendido += Integer.parseInt((String) cantidadActual);
+	            } catch (NumberFormatException ex) {
+	                // Manejar el caso en el que el String no pueda ser convertido a Integer
+	                JOptionPane.showMessageDialog(null, "Error en la cantidad de ventas: " + cantidadActual, "Error", JOptionPane.ERROR_MESSAGE);
+	                return; // Salir del método si hay un error en el formato
+	            }
+	        } else if (cantidadActual instanceof Integer) {
+	            // Sumar el valor si ya es un entero
+	            totalVendido += (Integer) cantidadActual;
 	        } else {
-	            // Opcional: Mensaje o acción si el usuario decide no registrar
-	            JOptionPane.showMessageDialog(null, "Registro cancelado.", "Registro Cancelado", JOptionPane.INFORMATION_MESSAGE);
+	            // Manejar otros posibles tipos de datos
+	            JOptionPane.showMessageDialog(null, "Tipo de dato inesperado en la tabla: " + cantidadActual.getClass().getName(), "Error", JOptionPane.ERROR_MESSAGE);
+	            return; // Salir del método si hay un tipo de dato inesperado
 	        }
-		
+
+	        // Actualizar stock basado en el producto
+	        String producto = (String) model.getValueAt(i, 0);
+	        if ("Mabe EMP6120PG0".equals(producto)) {
+	            MenuPrincipal.stock01 -= totalVendido; // Ajustar según la lógica de stock
+	        } else if ("Indurama Parma".equals(producto)) {
+	            MenuPrincipal.stock02 -= totalVendido; // Ajustar según la lógica de stock
+	        } else if ("Sole COSOL027".equals(producto)) {
+	            MenuPrincipal.stock03 -= totalVendido; // Ajustar según la lógica de stock
+	        } else if ("Coldex CX602".equals(producto)) {
+	            MenuPrincipal.stock04 -= totalVendido; // Ajustar según la lógica de stock
+	        } else if ("Reco Dakota".equals(producto)) {
+	            MenuPrincipal.stock05 -= totalVendido; // Ajustar según la lógica de stock
+	        }
+	    }
+
+	    int option = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea realizar el registro de la Venta?", "Confirmar Registro", JOptionPane.YES_NO_OPTION);
+
+	    if (option == JOptionPane.YES_OPTION) {
+	        // Registrar la venta
+	        agregarVenta(totalVendido);
+
+	        // Mostrar un mensaje de que el registro se realizó correctamente
+	        JOptionPane.showMessageDialog(null, "Registro realizado correctamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
+
+	        // Limpiar el formulario después del registro
+	        LimpiarFormulario();
+	    } else {
+	        JOptionPane.showMessageDialog(null, "Registro cancelado.", "Registro Cancelado", JOptionPane.INFORMATION_MESSAGE);
+	    }
+	}
+
+	public static int agregarVenta(int cantidadVendida) {
+	    System.out.println("Cantidad vendida recibida: " + cantidadVendida);
+	    GuiBoletaVenta.totalVentasAcumulado += cantidadVendida;
+	    System.out.println("Total vendido acumulado: " + totalVentasAcumulado);
+	    return totalVentasAcumulado;
 	}
 }

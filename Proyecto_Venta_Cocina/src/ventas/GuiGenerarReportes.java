@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextArea;
 
 public class GuiGenerarReportes extends JDialog implements ActionListener {
 
@@ -23,6 +24,7 @@ public class GuiGenerarReportes extends JDialog implements ActionListener {
 	private JComboBox cboTipoRepor;
 	private JButton btnCerrar;
 	private JScrollPane spReportes;
+	private JTextArea textArea;
 
 	/**
 	 * Launch the application.
@@ -65,7 +67,13 @@ public class GuiGenerarReportes extends JDialog implements ActionListener {
 		
 		spReportes = new JScrollPane();
 		spReportes.setBounds(49, 75, 531, 323);
+		
 		contentPanel.add(spReportes);
+		
+		textArea = new JTextArea();
+		textArea.setEditable(false);
+		textArea.setText(getTotalVendidos());
+		spReportes.setViewportView(textArea);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -79,5 +87,9 @@ public class GuiGenerarReportes extends JDialog implements ActionListener {
 	}
 	protected void actionPerformedBtnNewButtonJButton(ActionEvent e) {
 		dispose();
+	}
+	
+	protected String getTotalVendidos() {
+		return Integer.toString(GuiBoletaVenta.totalVentasAcumulado);
 	}
 }
