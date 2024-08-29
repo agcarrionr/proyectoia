@@ -1,7 +1,6 @@
 package ventas;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -25,6 +24,8 @@ import java.awt.print.PrinterJob;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JTable;
@@ -47,6 +48,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLayeredPane;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListener {
 
@@ -68,7 +70,7 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 	private JLabel lblPre;
 	private JLabel lblNewLabel_5;
 	private JScrollPane scrollPane;
-	private JComboBox cboModelo;
+	public static JComboBox cboModelo;
 	private JTextField txtDNI;
 	private JTextField txtFecha;
 	private JLabel lblFecha;
@@ -98,6 +100,9 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 	//parámetros globales 
 	public static int totalVendido = 0;
 	public static int totalVentasAcumulado = 0;
+	public static String modelo = "";
+	public static double precioModelo = 0.0;
+	public static ArrayList<ProductoVendido> productos = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -143,38 +148,39 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 		
 		lblModel = new JLabel("Modelo :");
-		lblModel.setBounds(36, 66, 86, 14);
+		lblModel.setBounds(36, 92, 86, 14);
 		contentPane.add(lblModel);
 		
 		lblCliente = new JLabel("Cliente :");
-		lblCliente.setBounds(36, 100, 86, 14);
+		lblCliente.setBounds(36, 126, 86, 14);
 		contentPane.add(lblCliente);
 		
 		lblDirec = new JLabel("Dirección :");
-		lblDirec.setBounds(36, 125, 86, 14);
+		lblDirec.setBounds(36, 151, 86, 14);
 		contentPane.add(lblDirec);
 		
-		btnBuscarCliente = new JButton("New button");
+		btnBuscarCliente = new JButton("Buscar");
+		btnBuscarCliente.setFont(new Font("Lucida Grande", Font.PLAIN, 12));
 		btnBuscarCliente.addActionListener(this);
-		btnBuscarCliente.setBounds(368, 91, 46, 23);
+		btnBuscarCliente.setBounds(359, 120, 55, 22);
 		contentPane.add(btnBuscarCliente);
 		
 		txtCliente = new JTextField();
-		txtCliente.setBounds(116, 94, 242, 20);
+		txtCliente.setBounds(116, 120, 242, 20);
 		contentPane.add(txtCliente);
 		txtCliente.setColumns(10);
 		
 		txtDirecc = new JTextField();
-		txtDirecc.setBounds(116, 119, 298, 20);
+		txtDirecc.setBounds(116, 145, 298, 20);
 		contentPane.add(txtDirecc);
 		txtDirecc.setColumns(10);
 		
 		lblDNI = new JLabel("DNI :");
-		lblDNI.setBounds(467, 100, 46, 14);
+		lblDNI.setBounds(477, 103, 46, 14);
 		contentPane.add(lblDNI);
 		
 		lblPre = new JLabel("Precio :");
-		lblPre.setBounds(36, 150, 71, 22);
+		lblPre.setBounds(36, 176, 71, 22);
 		contentPane.add(lblPre);
 		
 		lblNewLabel_5 = new JLabel("Inter Kitchen");
@@ -185,7 +191,7 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
 		scrollPane.setViewportBorder(new LineBorder(new Color(0, 0, 0)));
-		scrollPane.setBounds(35, 217, 627, 100);
+		scrollPane.setBounds(35, 236, 627, 100);
 		contentPane.add(scrollPane);
 		
 		TableVenta = new JTable();
@@ -224,16 +230,16 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		cboModelo = new JComboBox();
 		cboModelo.addActionListener(this);
 		cboModelo.setModel(new DefaultComboBoxModel(new String[] {"---Seleccione---","Mabe EMP6120PG0", "Indurama Parma", "Sole COSOL027", "Coldex CX602", "Reco Dakota"}));
-		cboModelo.setBounds(118, 62, 177, 22);
+		cboModelo.setBounds(118, 88, 177, 22);
 		contentPane.add(cboModelo);
 		
 		txtDNI = new JTextField();
-		txtDNI.setBounds(523, 96, 114, 20);
+		txtDNI.setBounds(533, 99, 114, 20);
 		contentPane.add(txtDNI);
 		txtDNI.setColumns(10);
 		
 		txtFecha = new JTextField();
-		txtFecha.setBounds(523, 121, 114, 20);
+		txtFecha.setBounds(533, 124, 114, 20);
 		txtFecha.setText(fechaFormateada);
 		txtFecha.setEditable(false);
 		txtFecha.setColumns(10);
@@ -241,78 +247,78 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		contentPane.add(txtFecha);
 		
 		lblFecha = new JLabel("Fecha :");
-		lblFecha.setBounds(467, 125, 46, 14);
+		lblFecha.setBounds(477, 128, 46, 14);
 		contentPane.add(lblFecha);
 		
 		lblStock = new JLabel("Stock :");
-		lblStock.setBounds(235, 158, 46, 14);
+		lblStock.setBounds(235, 184, 46, 14);
 		contentPane.add(lblStock);
 		
 		txtCanti = new JTextField();
 		txtCanti.addKeyListener(this);
-		txtCanti.setBounds(116, 178, 86, 20);
+		txtCanti.setBounds(116, 204, 86, 20);
 		contentPane.add(txtCanti);
 		txtCanti.setColumns(10);
 		
 		btnSuma = new JButton("+");
 		btnSuma.addActionListener(this);
-		btnSuma.setBounds(523, 177, 52, 23);
+		btnSuma.setBounds(508, 175, 52, 23);
 		contentPane.add(btnSuma);
 		
 		btnMenos = new JButton("-");
 		btnMenos.addActionListener(this);
-		btnMenos.setBounds(585, 177, 52, 23);
+		btnMenos.setBounds(570, 175, 52, 23);
 		contentPane.add(btnMenos);
 		
 		btnNuevo = new JButton("Nuevo");
 		btnNuevo.addActionListener(this);
-		btnNuevo.setBounds(35, 342, 72, 23);
+		btnNuevo.setBounds(35, 355, 72, 23);
 		contentPane.add(btnNuevo);
 		
 		btnImpri = new JButton("Imprimir");
 		btnImpri.addActionListener(this);
-		btnImpri.setBounds(127, 342, 85, 23);
+		btnImpri.setBounds(127, 355, 85, 23);
 		contentPane.add(btnImpri);
 		
 		btnCerrar = new JButton("Cerrar");
 		btnCerrar.addActionListener(this);
-		btnCerrar.setBounds(222, 342, 85, 23);
+		btnCerrar.setBounds(222, 355, 85, 23);
 		contentPane.add(btnCerrar);
 		
 		lblSubTo = new JLabel("Sub Total :");
-		lblSubTo.setBounds(452, 331, 123, 14);
+		lblSubTo.setBounds(452, 344, 123, 14);
 		contentPane.add(lblSubTo);
 		
 		lblIGV = new JLabel("IGV :");
-		lblIGV.setBounds(452, 362, 46, 14);
+		lblIGV.setBounds(452, 375, 46, 14);
 		contentPane.add(lblIGV);
 		
 		lblTpagar = new JLabel("Total a pagar :");
-		lblTpagar.setBounds(452, 390, 123, 14);
+		lblTpagar.setBounds(452, 403, 123, 14);
 		contentPane.add(lblTpagar);
 		
 		txtSub = new JTextField();
 		txtSub.setEditable(false);
-		txtSub.setBounds(576, 328, 86, 20);
+		txtSub.setBounds(576, 341, 86, 20);
 		contentPane.add(txtSub);
 		txtSub.setColumns(10);
 		
 		txtIGV = new JTextField();
 		txtIGV.setEditable(false);
-		txtIGV.setBounds(576, 359, 86, 20);
+		txtIGV.setBounds(576, 372, 86, 20);
 		contentPane.add(txtIGV);
 		txtIGV.setColumns(10);
 		
 		txtPagar = new JTextField();
 		txtPagar.setEditable(false);
-		txtPagar.setBounds(576, 387, 86, 20);
+		txtPagar.setBounds(576, 400, 86, 20);
 		contentPane.add(txtPagar);
 		txtPagar.setColumns(10);
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBorder(new LineBorder(new Color(0, 0, 0)));
 		layeredPane.setBackground(new Color(128, 128, 128));
-		layeredPane.setBounds(452, 15, 210, 65);
+		layeredPane.setBounds(467, 11, 195, 67);
 		contentPane.add(layeredPane);
 		
 		lblRUC = new JLabel("   R.U.C 10157464626");
@@ -338,18 +344,18 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setColumns(10);
-		txtPrecio.setBounds(116, 150, 60, 20);
+		txtPrecio.setBounds(116, 176, 60, 20);
 		contentPane.add(txtPrecio);
 		txtPrecio.setEditable(false);
 		txtPrecio.addActionListener(cboModelo);
 		
 		lblCanti = new JLabel("Cantidad :");
-		lblCanti.setBounds(36, 183, 71, 14);
+		lblCanti.setBounds(36, 209, 71, 14);
 		contentPane.add(lblCanti);
 		
 		txtStock = new JTextField();
 		txtStock.setColumns(10);
-		txtStock.setBounds(291, 155, 72, 20);
+		txtStock.setBounds(291, 181, 72, 20);
 		contentPane.add(txtStock);
 		txtStock.setEditable(false);
 		txtStock.addActionListener(cboModelo);
@@ -360,13 +366,9 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 		btnRegistrar = new JButton("Registrar");
 		btnRegistrar.addActionListener(this);
-		btnRegistrar.setBounds(325, 342, 89, 23);
+		btnRegistrar.setBounds(325, 355, 89, 23);
 		contentPane.add(btnRegistrar);
-		AbrirGUI();
-		
-		
 	}
-	
 	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnRegistrar) {
@@ -394,12 +396,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 			actionPerformedCboModelo(e);
 		}
 	}
-	
-	//DATOS MOSTRADO AL ABRIR EL GUICONSULTARCOCINA
-		void AbrirGUI() {
-			//txtPrecio.setText(""+MenuPrincipal.precio0);
-			//txtStock.setText(""+MenuPrincipal.stock01);				
-		}
 		
 		protected void actionPerformedCboModelo(ActionEvent e) {
 			
@@ -436,7 +432,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 	            return; // Salir del método si los campos no están completos
 	        }
 		
-		
 		String Textmodelo = (String) cboModelo.getSelectedItem();
         String precio = txtPrecio.getText();
         String cantidad = txtCanti.getText();
@@ -445,7 +440,7 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 		int modelovalor,cantientero;
 		String obs;
-		double pre,icom,ipagar,desc=0;
+		double icom,ipagar,desc=0;
      // Validar que los campos no estén vacíos
         if (Textmodelo == null || Textmodelo.isEmpty() || precio.isEmpty() || cantidad.isEmpty()) {
             // Mostrar mensaje de error si algún campo está vacío
@@ -457,8 +452,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
             JOptionPane.showMessageDialog(null, "La cantidad es superior al stock permitido.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             return; // Salir del método si los campos no están completos
         }
-        
-		 
 		//Entrada de datos
 		 
         modelovalor=cboModelo.getSelectedIndex();
@@ -466,27 +459,27 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 		//Proceso
 		if(modelovalor==0){
-			pre=0;
+			precioModelo=0;
 		}	
 		else if(modelovalor==1){
-			pre=949.0;
+			precioModelo=949.0;
 		}	
 		else if(modelovalor==2){	
-			pre=1089.0;
+			precioModelo=1089.0;
 		}
 		else if(modelovalor==3) {
-			pre=850.0;
+			precioModelo=850.0;
 		}
 		else if(modelovalor==4) {
-			pre=629.0;
+			precioModelo=629.0;
 		}
 		else {
-			pre=849.0;
+			precioModelo=849.0;
 		}
 		
 		//Calculando importe compra 
 		
-		icom=pre*cantientero;
+		icom=precioModelo*cantientero;
 		
 		//Calculando importe descuento
 		
@@ -569,10 +562,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
         		    // Si ya es un Double, solo asignarlo
         			nuevoimporteDescuento = (Double) importeDescuento + desc;
         		}
-              // double importeDesc = Double.parseDouble(importeDescuento);
-               // Incrementar la cantidad
-              // double nuevoimporteDescuento = importeDescuento + desc;
-               // Actualizar la celda con la nueva cantidad
                model.setValueAt(df.format(nuevoimporteDescuento), i, 4);
 
                System.out.print("total descuento:" + nuevoimporteDescuento);
@@ -588,10 +577,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
        		    // Si ya es un Double, solo asignarlo
        				nuevaimportePagar = (Double) importePagar + ipagar;
        			}
-            //  double importePa = Double.parseDouble(importePagar);
-               // Incrementar la cantidad
-              // double nuevaimportePagar = importePagar + ipagar;
-               // Actualizar la celda con la nueva cantidad
                model.setValueAt(df.format(nuevaimportePagar), i, 5);
                
                System.out.print("total pagar:" + nuevaimportePagar);
@@ -696,8 +681,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		
 	}
 	
-	
-	
 	 public void setDatosCliente(String cliente, String direccion, String dni) {
 		 txtCliente.setText(cliente);
 		 txtDirecc.setText(direccion);
@@ -712,31 +695,6 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 		int lastRowIndex = model.getRowCount() - 1;
 			
 		if (lastRowIndex >= 0) {
-			
-	    //     if(model.getValueAt(lastRowIndex, 0)==Textmodelo) {
-	        	   
-	     //   	   Object cantidadActual = model.getValueAt(lastRowIndex, 2);
-	     //           int nuevaCantidad = 0;
-	      //   	   if (cantidadActual instanceof String) {
-	         		    // Si es un String, convertirlo a double
-	        // 		   nuevaCantidad = Integer.parseInt((String) cantidadActual);
-	      //   		} else if (cantidadActual instanceof Integer) {
-	         		    // Si ya es un Double, solo asignarlo
-	      //   			nuevaCantidad = (Integer) cantidadActual ;
-	       //  		}
-	        	   
-	        //	   if(Textmodelo=="Mabe EMP6120PG0") {
-	         //		   MenuPrincipal.stock01+=nuevaCantidad;	         		   
-	        // 	   }else if(Textmodelo=="Indurama Parma") {
-	         //		   MenuPrincipal.stock02+=nuevaCantidad;	         		   
-	        // 	   }else if(Textmodelo=="Sole COSOL027") {
-	         //		   MenuPrincipal.stock03+=nuevaCantidad;         		   
-	        // 	   }else if(Textmodelo=="Coldex CX602") {	         		   
-	        // 		   MenuPrincipal.stock04+=nuevaCantidad;
-	         //	   }else if(Textmodelo=="Reco Dakota") {
-	        // 		   MenuPrincipal.stock05+=nuevaCantidad;	         		   
-	        // 	   }	        	   	        	   
-	         //  }
 			
 		    model.removeRow(lastRowIndex);
 		    
@@ -862,22 +820,55 @@ public class GuiBoletaVenta extends JFrame implements ActionListener, KeyListene
 
 	    if (option == JOptionPane.YES_OPTION) {
 	        // Registrar la venta
-	        agregarVenta(totalVendido);
-
+	        for (int i = 0; i < model.getRowCount(); i++) {
+		        String producto = (String) model.getValueAt(i, 0);
+		        int cantidad = Integer.parseInt(model.getValueAt(i, 2).toString());
+		        double descuento = Double.parseDouble(model.getValueAt(i, 4).toString());
+		        double impTotal = Double.parseDouble(model.getValueAt(i, 5).toString());
+		        double precio = Double.parseDouble(model.getValueAt(i, 1).toString());
+		        obtenerDatosProducto(producto, cantidad, descuento, impTotal, precio);
+		        agregarVenta(cantidad);
+		    }
+	        
 	        // Mostrar un mensaje de que el registro se realizó correctamente
 	        JOptionPane.showMessageDialog(null, "Registro realizado correctamente.", "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
-
 	        // Limpiar el formulario después del registro
 	        LimpiarFormulario();
 	    } else {
 	        JOptionPane.showMessageDialog(null, "Registro cancelado.", "Registro Cancelado", JOptionPane.INFORMATION_MESSAGE);
 	    }
 	}
-
+	
+	public static void obtenerDatosProducto(String modelo, int cantidad, double descuento, double importe, double precio) {
+		
+		boolean encontrado = false;
+		
+		for (int i = 0; i < GuiBoletaVenta.productos.size(); i++) {
+			ProductoVendido producto = GuiBoletaVenta.productos.get(i);
+            if(producto.modelo.equals(modelo)) {
+            	int newCantidad = producto.getCantidad() + cantidad;
+            	double newDescuento = producto.getDescuento() + descuento;
+            	double newImpTotal = producto.getImporte() + importe;
+            	producto.setCantidad(newCantidad);
+            	producto.setDescuento(newDescuento);
+            	producto.getImporte();
+            	producto.getPrecio();
+            	GuiBoletaVenta.productos.set(i, producto);
+            	encontrado = true;
+            	break;
+            }
+        }
+		
+		if (!encontrado) {
+			ProductoVendido producto = new ProductoVendido(modelo, cantidad, importe, descuento, precio);
+			GuiBoletaVenta.productos.add(producto);
+		}
+    }
+	
 	public static int agregarVenta(int cantidadVendida) {
-	    System.out.println("Cantidad vendida recibida: " + cantidadVendida);
 	    GuiBoletaVenta.totalVentasAcumulado += cantidadVendida;
-	    System.out.println("Total vendido acumulado: " + totalVentasAcumulado);
+	    System.out.println("Cantidad vendida recibida: " + totalVentasAcumulado);
 	    return totalVentasAcumulado;
 	}
+	
 }
